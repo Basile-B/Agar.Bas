@@ -3,57 +3,94 @@ void setup() {
     size(1024, 526);
 }
 
-var t = 10;
-var diameter = 50;
-var posx = 150;
-var posy = 150;
-var score = 0;
-var vx = 0;
-var vy = 0;
-var DotExists = 1;
-var prikker =[];
-for (int i = 0 ;i < 200; ++i){
-    prikker.push({x : random(1024), y : random(526), color : #ff8899});
+var cellSize =30;
+var score =0;
+var diameter = cellSize;
+var x = 200;
+var vx = 2;
+var vy = 5;
+var y = 5;
+var ax = 2;
+var ay = 2;
+var x2 = 200;
+var y2 = 5;
+var vx2 = 2;
+var vy2 = 5;
+var dotExists = 1;
+var dots = [];
+for(var i=0; i <200 ; ++i){
+    dots.push({x:random(500), y:random(500)});    
 }
+var distance = function (x1,y1,x2,y2){
+    var a=x1-x2;
+    var b=y1-y2;
+    return sqrt(a*a+b*b);
+};
 
-int distance(int x1, int y1, int x2, int y2) {
-    int a = x1 - x2;
-    int b = y1 - y2;
-
-    return sqrt(a * a + b * b);
-}
 
 void draw() {
-
-    if (t % 1000 === 0){
-        prikker.push({x : random(1024), y : random(526), color : #ff8899});
-    }
-
-    //Ellipse
-    background(#000000);
-    text("Score " + score, 10, 20);
-    fill(#ff8899);
-    vx = mouseX - posx;
-    vy = mouseY - posy;
-    speed = sqrt(vx * vx + vy * vy);
-    posx = posx + vx/speed;
-    posy = posy + vy/speed;
-    ellipse(posx, posy, diameter, diameter);
-    stroke(#ff88ff);
-    fill(#fde201);
-    ellipse(mouseX,mouseY, 10, 10);
-
-
-    for ( var i = 0; i <prikker.length; i++) {
-        if (distance(posx, posy, prikker[i].x, prikker[i].y) < diameter / 2) {
-            prikker.splice(i,1);
+    for (var i = 0; i <dots.length; i ++){
+        if (distance(x,y,dots[i].x, dots [i].y) < diameter/2){
+            dots.splice(i,1);
             score = score + 1;
-            diameter = 50 + score;
+            diameter = cellSize + score;
+        
         }
     }
-
-    for ( var i = 0; i <prikker.length; i ++){
-        fill(prikker[i].color);
-        ellipse(prikker[i].x, prikker[i].y, 10, 10);
+    background(255, 255, 255);
+    for (var i = 0; i <dots.length; i ++){
+        ellipse(dots[i].x, dots [i].y, 10,10);
     }
-}
+    var d = sqrt(pow((x2-x), 2)+pow((y2-y), 2));
+    
+
+    text(score, 50, 390);
+
+    // Cell
+    fill(255, 255, 0);
+    ellipse(x, y, diameter, diameter);
+    fill(255, 0, 0);
+    //ellipse(x2, y2, cellSize, cellSize);
+    
+    
+    y2 += vy2;
+    x2 += vx2;
+
+    vx = mouseX-x;
+    vy = mouseY-y;
+    var move = sqrt(pow(mouseX-x, 2) + pow(mouseY-y, 2)) / 3;
+    x = x + vx/move;
+    y = y + vy/move;
+
+    if (x > 350){
+        vx = - vx;
+    }
+    if (x < 5){
+        vx = - vx;
+    }
+    if (y > 350){
+        vy = - vy;
+    }
+    if (y < 5){
+        vy = - vy;
+    }
+    if (x2 > 350){
+        vx2 = - vx2;
+    }
+    if (x2 < 50){ 
+        vx2 = - vx2;
+    } 
+    if (y2 > 350){
+        vy2 = - vy2;
+    }
+    if (y2 < 5){
+        vy2 = - vy2;
+    }
+    
+    fill(49, 34, 32);
+
+    //if(x > 100&& x < 200&& y > 150&& y < 250){
+    //vx = vx+ax;
+    //vy = vy+ay;
+    //}
+};
