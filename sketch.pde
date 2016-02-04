@@ -18,8 +18,8 @@ var vx2 = 2;
 var vy2 = 5;
 var dotExists = 1;
 var dots = [];
-for(var i=0; i <200 ; ++i){
-    dots.push({x:random(500), y:random(500)});    
+for(var i=0; i <1000 ; ++i){
+    dots.push({x:random(1917), y:random965)});
 }
 var distance = function (x1,y1,x2,y2){
     var a=x1-x2;
@@ -37,8 +37,17 @@ void draw() {
         
         }
     }
-    background(255, 255, 255);
-    for (var i = 0; i <dots.length; i ++){
+	background(255, 255, 255);
+
+	for (var i = 0; i<1917;i = i+50){
+		line (i,0,i,965);
+	}
+
+	for (var j = 0; j<965;j = j+50){
+		line (0,j,1917,j);
+	}
+
+	for (var i = 0; i <dots.length; i ++){
         ellipse(dots[i].x, dots [i].y, 10,10);
     }
     var d = sqrt(pow((x2-x), 2)+pow((y2-y), 2));
@@ -62,32 +71,9 @@ void draw() {
     x = x + vx/move;
     y = y + vy/move;
 
-    if (x > 350){
-        vx = - vx;
-    }
-    if (x < 5){
-        vx = - vx;
-    }
-    if (y > 350){
-        vy = - vy;
-    }
-    if (y < 5){
-        vy = - vy;
-    }
-    if (x2 > 350){
-        vx2 = - vx2;
-    }
-    if (x2 < 50){ 
-        vx2 = - vx2;
-    } 
-    if (y2 > 350){
-        vy2 = - vy2;
-    }
-    if (y2 < 5){
-        vy2 = - vy2;
-    }
-    
-    fill(49, 34, 32);
+
+
+    fill(235, 213, 144);
 
     //if(x > 100&& x < 200&& y > 150&& y < 250){
     //vx = vx+ax;
